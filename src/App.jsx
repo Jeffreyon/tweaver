@@ -1,39 +1,17 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import Tweet from "./Tweet";
+import AddTweet from "./components/AddTweet";
 
 function App() {
     const [tweet, setTweet] = useState("");
-    const [tweetLink, setTweetLink] = useState(undefined);
 
-    let url = "/.netlify/functions/fetchTweet";
-    let fetchData = async () => {
-        let response = await fetch(url, {
-            method: "POST",
-            body: JSON.stringify({
-                tweetLink: tweetLink,
-            }),
-        });
-
-        let { data } = await response.json();
-
-        /* let parsed = await response.json();
-
-        //let { data } = await response.json();
-        //setTweet(data.text);
-        console.log(parsed); */
-        setTweet(data.text);
-    };
-    useEffect(() => {
-        if (tweetLink) {
-            fetchData();
+    const addTweetToList = (tweetData) => {
+        if (tweetData) {
+            console.log(tweetData);
         }
-    }, [tweetLink]);
-
-    const handleChange = (link) => {
-        setTweetLink(link);
     };
-
-    return (
+    /* return (
         <div>
             <input
                 type="text"
@@ -45,7 +23,10 @@ function App() {
                 <p>{tweet}</p>
             </div>
         </div>
-    );
+    ); */
+
+    //return <Tweet  />;
+    return <AddTweet handleSubmit={addTweetToList} />;
 }
 
 export default App;
