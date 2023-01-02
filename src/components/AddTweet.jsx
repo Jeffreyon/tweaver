@@ -28,8 +28,13 @@ export default function AddTweet({ handleSubmit }) {
                 placeholder="Enter tweet link"
                 onChange={handleChange}
                 value={tweetLink}
+                className="py-2 px-4 bg-slate-200"
             />
-            <button onClick={handleClick}>Add Tweet</button>
+            <button
+                onClick={handleClick}
+                className="p-2 bg-blue-500 text-white">
+                Add Tweet
+            </button>
         </div>
     );
 }

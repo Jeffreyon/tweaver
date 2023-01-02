@@ -1,32 +1,40 @@
-import { useEffect, useState } from "react";
-import "./App.css";
-import Tweet from "./Tweet";
+import { useState } from "react";
+import Tweet from "./components/Tweet";
+import FakeTweet from "./components/FakeTweet";
 import AddTweet from "./components/AddTweet";
 
 function App() {
-    const [tweet, setTweet] = useState("");
+    const [tweets, setTweets] = useState([]);
 
     const addTweetToList = (tweetData) => {
         if (tweetData) {
-            console.log(tweetData);
+            // map the tweetData
+            const { data, includes } = tweetData;
+
+            const tweet = {
+                text: data.text,
+                user: {
+                    name: includes.users[0].name,
+                    profile_image_url: includes.users[0].profile_image_url,
+                    username: includes.users[0].username,
+                },
+            };
+
+            setTweets([...tweets, tweet]);
         }
     };
-    /* return (
-        <div>
-            <input
-                type="text"
-                placeholder="Enter tweet link"
-                onChange={(e) => handleChange(e.target.value)}
-            />
-            <div>
-                <p>Tweet details</p>
-                <p>{tweet}</p>
-            </div>
-        </div>
-    ); */
 
-    //return <Tweet  />;
-    return <AddTweet handleSubmit={addTweetToList} />;
+    return (
+        <div className="flex flex-col gap-4 max-w-lg mx-auto">
+            <div>
+                {tweets.map((t, i) => {
+                    return <Tweet key={i} tweet={t} />;
+                })}
+            </div>
+            <FakeTweet />
+            <AddTweet handleSubmit={addTweetToList} />
+        </div>
+    );
 }
 
 export default App;
